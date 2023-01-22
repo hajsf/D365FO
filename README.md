@@ -2,6 +2,7 @@
 ```bash
 ➜  ~ curl -sL firebase.tools | bash
 Password:
+➜  ~ firebase login
 ➜  ~ mkdir D365FO
 ➜  ~ cd D365FO
 ➜  D365FO ls
