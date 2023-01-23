@@ -14,75 +14,13 @@ Copyright 2021 Google LLC
  limitations under the License.
  */
 
-import { offlineFallback, warmStrategyCache } from 'workbox-recipes';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
-import { registerRoute } from 'workbox-routing';
-import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-import { strategy as streamsStrategy } from 'workbox-streams';
-import { ExpirationPlugin } from 'workbox-expiration';
-import { openDB } from 'idb';
-import { marked } from 'marked';
-
-// Set up page cache
-const pageCache = new CacheFirst({
-  cacheName: 'page-cache',
-  plugins: [
-    new CacheableResponsePlugin({
-      statuses: [0, 200],
-    }),
-    new ExpirationPlugin({
-      maxAgeSeconds: 30 * 24 * 60 * 60,
-    }),
-  ],
+// This code executes in its own worker or thread
+self.addEventListener("install", event => {
+  console.log("Service worker installed");
 });
-
-warmStrategyCache({
-  urls: ['/index.html', '/'],
-  strategy: pageCache,
+self.addEventListener("activate", event => {
+  console.log("Service worker activated");
 });
-
-// Streaming preview
-registerRoute(
-  ({ url }) => url.pathname === '/preview' || url.pathname === '/preview/index.html',
-  streamsStrategy([
-    () => `<!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>PWA Edit | Markdown Preview</title>
-      <link rel="stylesheet" href="/css/preview.css" />
-      <script type="module" src="/js/preview.js"></script>
-    </head>
-    <body>
-      <main class="preview">`,
-    async () => {
-      const db = await openDB('settings-store');
-      const content = (await db.get('settings', 'content')) || '';
-      return marked(content);
-    },
-    () => `</main>
-  </body>
-</html>`,
-  ]),
-);
-
-// Regular navigation routing
-registerRoute(({ request }) => request.mode === 'navigate', pageCache);
-
-// Set up asset cache
-registerRoute(
-  ({ request }) => ['style', 'script', 'worker'].includes(request.destination),
-  new StaleWhileRevalidate({
-    cacheName: 'asset-cache',
-    plugins: [
-      new CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
-    ],
-  }),
-);
 
 // Set up offline fallback
 offlineFallback({
