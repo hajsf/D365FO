@@ -18,5 +18,17 @@
 	"sizes":"512x512",
 	"type":"image/png"
 	}
-]
+	],
+	"shortcuts": [
+		{
+		"name": "News Feed",
+		"url": "/feed",
+		"description": "Noteworthy news from today."
+		},
+		{
+		"name": "New Post",
+		"url": "/post",
+		"description": "Create a new post."
+		}
+	] 
 }
