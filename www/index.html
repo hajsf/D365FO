@@ -24,6 +24,8 @@
 <!-- Manifest File link -->
 <link rel="manifest"
 		href="manifest.json">
+
+		<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -40,6 +42,7 @@
 <script>
 	window.addEventListener('load', () => {
 	registerSW();
+	setBadge();
 	});
 
 	// Register the Service Worker
@@ -55,6 +58,13 @@
 		}
 	}
 	}
+
+	async function setBadge() {
+		if ('setAppBadge' in navigator) {
+		navigator.setAppBadge(1);
+		}
+	}
+
 </script>
 
 </body>

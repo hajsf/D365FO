@@ -3,6 +3,7 @@
 	"short_name":"PWA",
 	"start_url":"index.html",
 	"display":"standalone",
+	"display_override": ["window-controls-overlay"],
 	"background_color":"#5900b3",
 	"theme_color":"black",
 	"scope": ".",
@@ -21,14 +22,18 @@
 	],
 	"shortcuts": [
 		{
-		"name": "News Feed",
-		"url": "/feed",
-		"description": "Noteworthy news from today."
-		},
-		{
-		"name": "New Post",
-		"url": "/post",
-		"description": "Create a new post."
+		  "name": "News Feed",
+		  "short_name": "Feed",
+		  "url": "/feed",
+		  "description": "Noteworthy news from today.",
+		  "icons": [
+			{
+			  "src": "images/icon-96x96.png",
+			  "type": "image/png",
+			  "purpose": "any"
+			}
+		  ]
 		}
-	] 
+	  ]
+	  
 }
