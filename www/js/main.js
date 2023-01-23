@@ -31,7 +31,9 @@ if ('serviceWorker' in navigator) {
         });
       } else { */
         // In production, we use the normal service worker registration
-        reg = await navigator.serviceWorker.register('/service-worker.js');
+        reg = await navigator.serviceWorker.register('/service-worker.js', {
+          type: 'module',
+        });
     //  }
 
       console.log('Service worker registered! 😎', reg);
