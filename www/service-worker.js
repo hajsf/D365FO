@@ -23,6 +23,4 @@ self.addEventListener("activate", event => {
 });
 
 // Set up offline fallback
-offlineFallback({
-  pageFallback: '/offline.html',
-});
+
