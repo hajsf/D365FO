@@ -14,7 +14,6 @@
  limitations under the License.
  */
 
-import { wrap } from 'comlink';
 
 // Register the service worker
 if ('serviceWorker' in navigator) {
